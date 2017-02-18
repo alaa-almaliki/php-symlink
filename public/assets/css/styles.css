@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #fefefe;
+    background-color: ivory;
 }
 .container {
     position: relative;
@@ -17,12 +17,12 @@ body {
     padding: 10px;
 }
 .text-input {
-    width: 350px;
-    height: 22px;
+    width: 250px;
+    height: 10px;
     margin-top: 15px;
 }
 span {
-    padding-left: 20px;
+    padding-left: 10px;
 }
 
 .submit {
