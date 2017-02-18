@@ -8,10 +8,16 @@ namespace Symlink;
  */
 class Symlink
 {
+    const STATUS_SUCCESS = 0;
+
     /** @var  string */
-    protected $target;
+    protected $_target;
     /** @var  string */
-    protected $destination;
+    protected $_destination;
+    /** @var  array  */
+    protected $_paths = [];
+    /** @var  Validator */
+    protected $_validator;
 
     /**
      * Symlink constructor.
@@ -21,22 +27,48 @@ class Symlink
     {
         if (!empty($folders)) {
             if (isset($folders['target'])) {
-                $this->target = $folders['target'];
+                $this->_target = $folders['target'];
             }
 
             if (isset($folders['destination'])) {
-                $this->destination = $folders['destination'];
+                $this->_destination = $folders['destination'];
             }
         }
+
+        $this->setPaths(
+            [
+                'target'        => $this->getTarget(),
+                'destination'   => $this->getDestination(),
+            ]
+        );
+
+        $this->_validator = new Validator();
     }
 
     /**
-     * @param $target
+     * @param bool $asJson
+     * @return string
+     */
+    public function validate($asJson = true)
+    {
+        return $this->_validator->validate($this->_paths, $asJson);
+    }
+
+    /**
+     * @return bool
+     */
+    protected function _isValid()
+    {
+        return $this->_validator->isValid($this->_paths);
+    }
+
+    /**
+     * @param $_target
      * @return $this
      */
-    public function setTarget($target)
+    public function setTarget($_target)
     {
-        $this->target = $target;
+        $this->_target = $_target;
         return $this;
     }
 
@@ -45,16 +77,16 @@ class Symlink
      */
     public function getTarget()
     {
-        return $this->target;
+        return $this->_target;
     }
 
     /**
-     * @param $destination
+     * @param $_destination
      * @return $this
      */
-    public function setDestination($destination)
+    public function setDestination($_destination)
     {
-        $this->destination = $destination;
+        $this->_destination = $_destination;
         return $this;
     }
 
@@ -63,7 +95,25 @@ class Symlink
      */
     public function getDestination()
     {
-        return $this->destination;
+        return $this->_destination;
+    }
+
+    /**
+     * @param array $paths
+     * @return $this
+     */
+    public function setPaths(array $paths)
+    {
+        $this->_paths = $paths;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPaths()
+    {
+        return $this->_paths;
     }
 
     /**
@@ -72,6 +122,10 @@ class Symlink
      */
     public function link($asJson = true)
     {
+        if (!$this->_isValid()) {
+            return $this->validate();
+        }
+
         $this->_executeShell(
             sprintf('ln -sf %s %s', $this->getTarget(), $this->getDestination()),
             $output,
@@ -92,7 +146,7 @@ class Symlink
     protected function _getResults($status)
     {
         $message = "Error, could not link target folder: {$this->getTarget()}";
-        if ($status === 0) {
+        if ($status === self::STATUS_SUCCESS) {
             $message = "Target: {$this->getTarget()} was linked successfully.";
         }
 

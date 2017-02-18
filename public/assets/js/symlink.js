@@ -4,7 +4,7 @@ Symlink.Symlink = function () {
     this.ajax = new Symlink.Ajax();
 };
 
-Symlink.Symlink.prototype.callback = function (response) {
+Symlink.Symlink.prototype._validate = function (response) {
     var results = JSON.parse(response.responseText);
     var colours = {
         true: "green",
@@ -32,7 +32,7 @@ Symlink.Symlink.prototype.validate = function () {
             "destination=" + el.destination.value
         ].join("&")
     };
-    return this.ajax.send(options, this.callback);
+    return this.ajax.send(options, this._validate);
 };
 
 Symlink.Symlink.prototype.getForm = function () {
@@ -72,11 +72,20 @@ Symlink.Symlink.prototype.link = function () {
         ].join("&")
     };
 
+    var self = this;
     this.ajax.send(options, function (response) {
-        console.log(JSON.parse(response.responseText));
-    });
-};
+        var results = JSON.parse(response.responseText);
 
+        if (typeof results === 'undefined') {
+            return false;
+        }
+
+        if (results.constructor === Array) {
+            return self._validate(response);
+        }
+    });
+    
+};
 
 Symlink.Ajax = function () {
     if (typeof XMLHttpRequest !== 'undefined') {

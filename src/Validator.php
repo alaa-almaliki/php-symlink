@@ -23,8 +23,7 @@ class Validator
     {
         $results = [];
         foreach ($paths as $key => $path) {
-            $result = $this->_validateFilePath($key, $path);
-            $results[] = $result;
+            $results[] = $this->_validateFilePath($key, $path);
         }
 
         if ($isJson) {
@@ -32,6 +31,17 @@ class Validator
         }
 
         return $results;
+    }
+
+    public function isValid(array $paths)
+    {
+        $results = $this->validate($paths, false);
+        $success = true;
+        foreach ($results as $result) {
+            $success &= $result['found'];
+        }
+
+        return $success;
     }
 
     /**
