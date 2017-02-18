@@ -4,7 +4,7 @@ namespace Symlink;
 /**
  * Class Symlink
  * @package Symlink
- * @author Alaa Al-Maliki <alaa.al-maliki@missguided.com>
+ * @author Alaa Al-Maliki <alaa.almaliki@gmail.com>
  */
 class Symlink
 {
@@ -66,10 +66,12 @@ class Symlink
         return $this->destination;
     }
 
+    /**
+     * @return string
+     */
     public function link()
     {
         $result =  shell_exec(sprintf('ln -sf %s %s', $this->getTarget(), $this->getDestination()));
-        #$result = symlink($this->getTarget(), $this->getDestination());
         return json_encode(['success' => $result]);
     }
 }

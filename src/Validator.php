@@ -4,7 +4,7 @@ namespace Symlink;
 /**
  * Class Validator
  * @package Symlink
- * @author Alaa Al-Maliki <alaa.al-maliki@missguided.com>
+ * @author Alaa Al-Maliki <alaa.almaliki@gmail.com>
  */
 class Validator
 {

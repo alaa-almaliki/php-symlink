@@ -27,7 +27,7 @@ Symlink.Symlink.prototype.callback = function (response) {
 Symlink.Symlink.prototype.validate = function () {
     var el = this.getForm().init();
     var options = {
-        'type': 'POST',
+        'type': 'GET',
         'url': '/symlink/public/action/validator.php',
         'params': [
             "target=" + el.target.value,
@@ -66,7 +66,7 @@ Symlink.Symlink.prototype.getForm = function () {
 Symlink.Symlink.prototype.link = function () {
     var el = this.getForm().init();
     var options = {
-        'type': 'POST',
+        'type': 'GET',
         'url': '/symlink/public/action/symlink.php',
         'params': [
             "target=" + el.target.value,

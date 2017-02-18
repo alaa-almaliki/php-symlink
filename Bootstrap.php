@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Class BootStrap
+ *
+ * @author Alaa Al-Maliki<alaa.almaliki@gmail.com>
+ */
 final class BootStrap
 {
     /** @var  BootStrap */
@@ -8,7 +13,7 @@ final class BootStrap
     /**
      * @return BootStrap|static
      */
-    public static function instance()
+    protected static function _instance()
     {
         if (!self::$_instance) {
             self::$_instance = new static();
@@ -18,7 +23,7 @@ final class BootStrap
 
     public static function register()
     {
-        spl_autoload_register([self::instance(), 'autoload']);
+        spl_autoload_register([self::_instance(), 'autoload']);
     }
 
     /**
