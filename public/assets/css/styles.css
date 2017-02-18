@@ -1,13 +1,15 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: ivory;
+    background-color: #cecece;
 }
 .container {
     position: relative;
     width: 50%;
-    margin-left: 25%;
-    margin-right: 25%;
+    margin: 40px 25% 0 25%;
+
+    padding:20px;
+    background-color: ivory;
 }
 .title {
     position: relative;
@@ -34,5 +36,5 @@ span {
 }
 .footer {
     text-align: -webkit-center;
-    margin-top: 200px;
+    margin-top: 100px;
 }
