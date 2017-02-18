@@ -6,7 +6,6 @@ Symlink.Symlink = function () {
 
 Symlink.Symlink.prototype.callback = function (response) {
     var results = JSON.parse(response.responseText);
-    console.log(results);
     var colours = {
         true: "green",
         false: "red"
@@ -20,7 +19,6 @@ Symlink.Symlink.prototype.callback = function (response) {
         message.style.color = colours[result['found']];
         success &= result['found'];
     });
-    console.log(success);
     return success;
 };
 
