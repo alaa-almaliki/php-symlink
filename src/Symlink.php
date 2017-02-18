@@ -67,11 +67,47 @@ class Symlink
     }
 
     /**
+     * @param bool $asJson
      * @return string
      */
-    public function link()
+    public function link($asJson = true)
     {
-        $result =  shell_exec(sprintf('ln -sf %s %s', $this->getTarget(), $this->getDestination()));
-        return json_encode(['success' => $result]);
+        $this->_executeShell(
+            sprintf('ln -sf %s %s', $this->getTarget(), $this->getDestination()),
+            $output,
+            $status
+        );
+
+        if ($asJson) {
+            return json_encode($this->_getResults($status));
+        }
+
+        return $this->_getResults($status);
+    }
+
+    /**
+     * @param  int $status
+     * @return array
+     */
+    protected function _getResults($status)
+    {
+        $message = "Error, could not link target folder: {$this->getTarget()}";
+        if ($status === 0) {
+            $message = "Target: {$this->getTarget()} was linked successfully.";
+        }
+
+        return ['message' => $message, 'status' => $status];
+    }
+
+    /**
+     * @param $cmd
+     * @param $output
+     * @param $status
+     * @return $this
+     */
+    protected function _executeShell($cmd, &$output, &$status)
+    {
+        exec($cmd, $output, $status);
+        return $this;
     }
 }
