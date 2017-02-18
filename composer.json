@@ -1,0 +1,16 @@
+{
+  "name": "alaa-almaliki/symlink",
+  "type": "php lib",
+  "homepage": "https://github.com/alaa-almaliki/symlink",
+  "keywords": [
+    "Symlink",
+    "Symbolic links",
+    "PHP Symlink"
+  ],
+  "authors": [
+    {
+      "name": "Alaa Al-Maliki",
+      "email": "alaa.almaliki@gmail.com"
+    }
+  ]
+}

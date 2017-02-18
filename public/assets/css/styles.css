@@ -1,0 +1,38 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #fefefe;
+}
+.container {
+    position: relative;
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+.title {
+    position: relative;
+    margin-bottom: 30px;
+}
+.field {
+    padding: 10px;
+}
+.text-input {
+    width: 350px;
+    height: 22px;
+    margin-top: 15px;
+}
+span {
+    padding-left: 20px;
+}
+
+.submit {
+    width: 80px;
+    font-size: 15px;
+}
+.email {
+    color: blue;
+}
+.footer {
+    text-align: -webkit-center;
+    margin-top: 200px;
+}
