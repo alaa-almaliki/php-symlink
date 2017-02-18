@@ -8,12 +8,12 @@
 final class BootStrap
 {
     /** @var  BootStrap */
-    protected static $_instance;
+    private static $_instance;
 
     /**
      * @return BootStrap|static
      */
-    protected static function _instance()
+    private static function _instance()
     {
         if (!self::$_instance) {
             self::$_instance = new static();
