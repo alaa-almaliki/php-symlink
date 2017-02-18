@@ -16,12 +16,12 @@
         init: function () {
             this.symlink = new Symlink.Symlink();
         },
-        validate: function () {
-            this.symlink.validate();
+        validate: function (id) {
+            this.symlink.validate(id);
             return this;
         },
-        link: function () {
-            this.symlink.link();
+        link: function (id) {
+            this.symlink.link(id);
         }
     };
     Symlink.App.init();
@@ -54,8 +54,8 @@
                         </div>
                     </div>
                     <div class="field field-submit">
-                        <button class="submit" id="submit" onclick="Symlink.App.validate();">Validate</button>
-                        <button class="submit" id="sync" onclick="Symlink.App.link();">Link</button>
+                        <button class="submit" id="validate" onclick="Symlink.App.validate(this.id);">Validate</button>
+                        <button class="submit" id="link" onclick="Symlink.App.link(this.id);">Link</button>
                     </div>
                 </fieldset>
             </form>

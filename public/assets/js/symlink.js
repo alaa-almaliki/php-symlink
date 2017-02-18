@@ -22,14 +22,15 @@ Symlink.Symlink.prototype._validate = function (response) {
     return success;
 };
 
-Symlink.Symlink.prototype.validate = function () {
+Symlink.Symlink.prototype.validate = function (id) {
     var el = this.getForm().init();
     var options = {
         'type': 'GET',
-        'url': '/symlink/public/action/validator.php',
+        'url': '/symlink/public/action/symlink.php',
         'params': [
             "target=" + el.target.value,
-            "destination=" + el.destination.value
+            "destination=" + el.destination.value,
+            "action=" + id
         ].join("&")
     };
     return this.ajax.send(options, this._validate);
@@ -50,10 +51,10 @@ Symlink.Symlink.prototype.getForm = function () {
         },
 
         init: function () {
-            var that = this;
+            var self = this;
             this.el = {
-                target: that.getTarget(),
-                destination: that.getDestination()
+                target: self.getTarget(),
+                destination: self.getDestination()
             };
 
             return this.el;
@@ -61,14 +62,15 @@ Symlink.Symlink.prototype.getForm = function () {
     };
 };
 
-Symlink.Symlink.prototype.link = function () {
+Symlink.Symlink.prototype.link = function (id) {
     var el = this.getForm().init();
     var options = {
         'type': 'GET',
         'url': '/symlink/public/action/symlink.php',
         'params': [
             "target=" + el.target.value,
-            "destination=" + el.destination.value
+            "destination=" + el.destination.value,
+            "action=" + id
         ].join("&")
     };
 

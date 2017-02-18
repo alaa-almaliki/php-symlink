@@ -33,6 +33,10 @@ class Validator
         return $results;
     }
 
+    /**
+     * @param  array $paths
+     * @return bool
+     */
     public function isValid(array $paths)
     {
         $results = $this->validate($paths, false);

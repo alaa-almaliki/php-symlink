@@ -6,7 +6,7 @@ namespace Symlink;
  * @package Symlink
  * @author Alaa Al-Maliki <alaa.almaliki@gmail.com>
  */
-class Symlink
+class Symlink implements SymlinkInterface
 {
     const STATUS_SUCCESS = 0;
 
@@ -57,7 +57,7 @@ class Symlink
     /**
      * @return bool
      */
-    protected function _isValid()
+    public function isValid()
     {
         return $this->_validator->isValid($this->_paths);
     }
@@ -122,7 +122,7 @@ class Symlink
      */
     public function link($asJson = true)
     {
-        if (!$this->_isValid()) {
+        if (!$this->isValid()) {
             return $this->validate();
         }
 
