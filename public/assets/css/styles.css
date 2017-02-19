@@ -30,6 +30,18 @@ span {
     width: 80px;
     font-size: 15px;
 }
+
+.results {
+    text-align: left;
+    height: 25px;
+    background-color: #cecece;
+    color: green;
+}
+
+.results p {
+    padding: 5px;
+}
+
 .email {
     color: blue;
 }

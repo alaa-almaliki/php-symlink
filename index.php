@@ -60,6 +60,9 @@
                 </fieldset>
             </form>
         </div>
+        <div class="results" id="results">
+            <p>running command `ln -sf`</p>
+        </div>
     </div>
 <div class="footer">
     <p>&copy; <b><small>Alaa Al-Maliki</small></b> <br /><span class="email">alaa.almaliki@gmail.com</span></p>

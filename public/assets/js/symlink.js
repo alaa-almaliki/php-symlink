@@ -86,8 +86,9 @@ Symlink.Symlink.prototype.link = function (id) {
         if (results.constructor === Array) {
             return self._validate(response);
         }
+
+        console.log(results);
     });
-    
 };
 
 Symlink.Ajax = function () {

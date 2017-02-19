@@ -2,6 +2,7 @@
 require_once dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'autoload.php';
 
 use Symlink\SymlinkInterface as Link;
+use Symlink\Validator;
 use Symlink\Symlink;
 
 $params = [
@@ -10,7 +11,7 @@ $params = [
     'action'        => trim($_GET['action']),
 ];
 
-$symlink = new Symlink($params);
+$symlink = new Symlink(new Validator($params));
 
 if ($params['action'] === Link::ACTION_LINK) {
     echo $symlink->link();
