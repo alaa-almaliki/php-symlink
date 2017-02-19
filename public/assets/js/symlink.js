@@ -87,7 +87,12 @@ Symlink.Symlink.prototype.link = function (id) {
             return self._validate(response);
         }
 
-        console.log(results);
+        var resultDev = document.getElementById('result');
+        var resultMessage = document.getElementById('result-message');
+        resultDev.style.display = 'block';
+        resultMessage.innerHTML = results['message'];
+
+
     });
 };
 

@@ -60,8 +60,8 @@
                 </fieldset>
             </form>
         </div>
-        <div class="results" id="results">
-            <p>running command `ln -sf`</p>
+        <div class="result" id="result">
+            <p id="result-message"></p>
         </div>
     </div>
 <div class="footer">
