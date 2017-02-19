@@ -8,7 +8,7 @@ namespace Symlink;
  */
 interface SymlinkInterface
 {
-    const ACTION_LINK = 'link';
+    const ACTION_LINK = 'symlink';
     const ACTION_VALIDATE = 'validate';
 
     /**

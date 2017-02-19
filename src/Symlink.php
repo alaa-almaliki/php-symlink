@@ -33,14 +33,14 @@ class Symlink implements SymlinkInterface
             if (isset($folders['destination'])) {
                 $this->_destination = $folders['destination'];
             }
-        }
 
-        $this->setPaths(
-            [
-                'target'        => $this->getTarget(),
-                'destination'   => $this->getDestination(),
-            ]
-        );
+            $this->setPaths(
+                [
+                    'target'        => $this->getTarget(),
+                    'destination'   => $this->getDestination(),
+                ]
+            );
+        }
 
         $this->_validator = new Validator();
     }

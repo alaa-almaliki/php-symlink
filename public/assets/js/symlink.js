@@ -2,6 +2,7 @@ var Symlink = {};
 
 Symlink.Symlink = function () {
     this.ajax = new Symlink.Ajax();
+    this.url = '/symlink/public/action/symlink.php';
 };
 
 Symlink.Symlink.prototype._validate = function (response) {
@@ -26,7 +27,7 @@ Symlink.Symlink.prototype.validate = function (id) {
     var el = this.getForm().init();
     var options = {
         'type': 'GET',
-        'url': '/symlink/public/action/symlink.php',
+        'url': this.url,
         'params': [
             "target=" + el.target.value,
             "destination=" + el.destination.value,
@@ -66,7 +67,7 @@ Symlink.Symlink.prototype.link = function (id) {
     var el = this.getForm().init();
     var options = {
         'type': 'GET',
-        'url': '/symlink/public/action/symlink.php',
+        'url': this.url,
         'params': [
             "target=" + el.target.value,
             "destination=" + el.destination.value,

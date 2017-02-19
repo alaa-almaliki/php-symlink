@@ -17,7 +17,7 @@ class Validator
     /**
      * @param  array $paths
      * @param  boolean $isJson
-     * @return string
+     * @return array|string
      */
     public function validate(array $paths = [], $isJson = true)
     {
@@ -40,6 +40,11 @@ class Validator
     public function isValid(array $paths)
     {
         $results = $this->validate($paths, false);
+
+        if (!is_array($results)) {
+            return false;
+        }
+
         $success = true;
         foreach ($results as $result) {
             $success &= $result['found'];

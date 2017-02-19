@@ -12,5 +12,5 @@ $params = [
 if ($params['action'] === Link::ACTION_LINK) {
     echo (new \Symlink\Symlink($params))->link();
 } else if ($params['action'] === Link::ACTION_VALIDATE) {
-    echo (new \Symlink\Validator())->validate($params);
+    echo (new \Symlink\Symlink($params))->validate($params);
 }

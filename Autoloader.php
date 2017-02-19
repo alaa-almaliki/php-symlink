@@ -7,11 +7,11 @@
  */
 final class Autoloader
 {
-    /** @var  BootStrap */
+    /** @var  Autoloader */
     private static $_instance;
 
     /**
-     * @return BootStrap|static
+     * @return Autoloader|static
      */
     private static function _instance()
     {
@@ -23,13 +23,13 @@ final class Autoloader
 
     public static function register()
     {
-        spl_autoload_register([self::_instance(), 'autoload']);
+        spl_autoload_register([self::_instance(), '_autoload']);
     }
 
     /**
      * @param string $class
      */
-    public static function autoload($class)
+    private static function _autoload($class)
     {
         $classPath = explode('\\', $class);
         unset($classPath[0]);

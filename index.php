@@ -55,7 +55,7 @@
                     </div>
                     <div class="field field-submit">
                         <button class="submit" id="validate" onclick="Symlink.App.validate(this.id);">Validate</button>
-                        <button class="submit" id="link" onclick="Symlink.App.link(this.id);">Link</button>
+                        <button class="submit" id="symlink" onclick="Symlink.App.link(this.id);">Link</button>
                     </div>
                 </fieldset>
             </form>
