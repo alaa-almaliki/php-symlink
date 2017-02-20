@@ -53,7 +53,10 @@
                             <p id="destination-message"></p>
                         </div>
                     </div>
-                    <div class="field field-submit">
+                    <div class=" field checkbox">
+                        <input type="checkbox" name="clean" id="clean"/><span><small>Clean Link</small></span>
+                    </div>
+                    <div class="field field-button">
                         <button class="submit" id="validate" onclick="Symlink.App.validate(this.id);">Validate</button>
                         <button class="submit" id="symlink" onclick="Symlink.App.link(this.id);">Link</button>
                     </div>

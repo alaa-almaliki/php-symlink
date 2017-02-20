@@ -24,20 +24,32 @@ class Validator
     protected $_target;
     /** @var  string */
     protected $_destination;
+    /** @var  string */
+    protected $_action;
+    /** @var  boolean */
+    protected $_isClean = false;
 
     /**
      * Validator constructor.
-     * @param array $paths
+     * @param array $args
      */
-    public function __construct(array $paths = [])
+    public function __construct(array $args = [])
     {
-        if (!empty($paths)) {
-            if (isset($paths['target'])) {
-                $this->_target = $paths['target'];
+        if (!empty($args)) {
+            if (isset($args['target'])) {
+                $this->_target = $args['target'];
             }
 
-            if (isset($paths['destination'])) {
-                $this->_destination = $paths['destination'];
+            if (isset($args['destination'])) {
+                $this->_destination = $args['destination'];
+            }
+
+            if (isset($args['action'])) {
+                $this->_action = $args['action'];
+            }
+
+            if (isset($args['clean'])) {
+                $this->_isClean = $args['clean'] === 'true'? true : false;
             }
 
             $this->setPaths(
@@ -104,6 +116,37 @@ class Validator
     }
 
     /**
+     * @param  string $action
+     * @return $this
+     */
+    public function setAction($action)
+    {
+        $this->_action = $action;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAction()
+    {
+        return $this->_action;
+    }
+
+    /**
+     * @param null|bool $value
+     * @return bool
+     */
+    public function isClean($value = null)
+    {
+        if ($value !== null) {
+            $this->_isClean = $value;
+        }
+
+        return $this->_isClean;
+    }
+
+    /**
      * @param bool $isJson
      * @return array|string
      */
@@ -160,7 +203,7 @@ class Validator
             case !$this->_isWritable(realpath($path)):
                 $code = self::ERROR_FILE_NOT_WRITABLE;
                 break;
-            case !$this->_isValidLink($key, $path):
+            case !$this->_canLink($key, $path):
                 $code = self::ERROR_FILE_ALREADY_LINK;
                 break;
             default:
@@ -224,14 +267,42 @@ class Validator
      * @param  string $path
      * @return bool
      */
-    protected function _isValidLink($key, $path)
+    protected function _canLink($key, $path)
     {
         $link = [
             rtrim($this->_paths['destination'], '/'),
             trim(basename($path), '/')
         ];
 
-        return !($this->_isLink(implode('/', $link)) && $this->_isTarget($key));
+        $link = implode('/', $link);
+
+        if ($this->isClean()) {
+            if ($this->_canUnlink($link)) {
+                return $this->_unlink($link);
+            } else {
+                return true;
+            }
+        }
+
+        return !($this->_isLink($link) && $this->_isTarget($key));
+    }
+
+    /**
+     * @param  string $link
+     * @return bool
+     */
+    protected function _canUnlink($link)
+    {
+        return $this->_isLink($link) && $this->getAction() === SymlinkInterface::ACTION_LINK;
+    }
+
+    /**
+     * @param  string $link
+     * @return bool
+     */
+    protected function _unlink($link)
+    {
+        return unlink($link);
     }
 
     /**

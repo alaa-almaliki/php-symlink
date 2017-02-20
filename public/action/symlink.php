@@ -8,6 +8,7 @@ use Symlink\Symlink;
 $params = [
     'target'        => trim($_GET['target']),
     'destination'   => trim($_GET['destination']),
+    'clean'         => trim($_GET['clean']),
     'action'        => trim($_GET['action']),
 ];
 
