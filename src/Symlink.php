@@ -49,17 +49,11 @@ class Symlink implements SymlinkInterface
             return $this->validate();
         }
 
-        $this->_executeShell(
-            sprintf('ln -sf %s %s', $this->_validator->getTarget(), $this->_validator->getDestination()),
-            $output,
-            $status
-        );
+        $files = File::listFiles($this->_validator->getTarget());
 
-        if ($asJson) {
-            return json_encode($this->_getResults($status));
+        foreach ($files as $file) {
+            symlink($file, $this->_validator->getDestination());
         }
-
-        return $this->_getResults($status);
     }
 
     /**

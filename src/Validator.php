@@ -200,7 +200,7 @@ class Validator
             case !$this->_fileExists(realpath($path)):
                 $code = self::ERROR_FILE_NOT_EXIST;
                 break;
-            case !($this->_isWritable(realpath($path)) && $this->_isTarget($key)):
+            case !$this->_isWritable(realpath($path)):
                 $code = self::ERROR_FILE_NOT_WRITABLE;
                 break;
             case !$this->_canLink($key, $path):

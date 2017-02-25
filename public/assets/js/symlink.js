@@ -1,7 +1,7 @@
 var Symlink = {};
 
 Symlink.Symlink = function () {
-    this.ajax = new Symlink.Ajax();
+    this.ajax = new AjaxNativeJs();
     this.url = '/symlink/public/action/symlink.php';
 };
 
@@ -86,34 +86,4 @@ Symlink.Symlink.prototype.link = function (id) {
 
 
     });
-};
-
-Symlink.Ajax = function () {
-    if (typeof XMLHttpRequest !== 'undefined') {
-        this.xhttp =  new XMLHttpRequest();
-    }
-
-};
-
-Symlink.Ajax.prototype.send = function (options, callback, async) {
-    if (typeof async === 'undefined') {
-        async = true;
-    }
-
-    this.xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            if (typeof callback === 'undefined') {
-                return this;
-            }
-            return callback(this);
-        }
-    };
-
-    this.xhttp.open(
-        options['type'],
-        options['url'] + '?' + options['params'],
-        async
-    );
-    this.xhttp.setRequestHeader('Content-Type', 'application/json');
-    this.xhttp.send();
 };

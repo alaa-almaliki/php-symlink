@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="public/assets/css/styles.css" />
 </head>
 <body>
+<script type="text/javascript" src="public/assets/js/AjaxNativeJs.js"></script>
 <script type="text/javascript" src="public/assets/js/symlink.js"></script>
 <script type="text/javascript">
     'use strict';
