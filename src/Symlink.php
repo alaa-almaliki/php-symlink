@@ -51,8 +51,35 @@ class Symlink implements SymlinkInterface
 
         $files = File::listFiles($this->_validator->getTarget());
 
-        foreach ($files as $file) {
-            symlink($file, $this->_validator->getDestination());
+
+        foreach ($files as $filename => $filePath) {
+            $linkDestination = [
+                basename($this->_validator->getTarget()),
+                trim(substr($filePath, strlen($this->_validator->getTarget()), strlen($filePath)), '/')
+            ];
+
+            $link = rtrim($this->_validator->getDestination(), '/') . '/' . implode('/', $linkDestination);
+            $dynamicPart = [];
+
+            $parts = explode('/', pathinfo(implode('/', $linkDestination), PATHINFO_DIRNAME));
+
+            foreach ($parts as $part) {
+                $dynamicPart [] = $part;
+                $path = $this->_validator->getDestination() . '/' . implode('/', $dynamicPart);
+                if (is_file($path)) {
+                    continue;
+                }
+                if (!is_dir($path)) {
+                    mkdir($path, 0777, true);
+                    chmod($path, 0777);
+                }
+            }
+
+            $this->_executeShell(
+                sprintf('ln -s %s %s', $filePath, $link),
+                $output,
+                $status
+            );
         }
     }
 

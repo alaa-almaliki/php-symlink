@@ -69,21 +69,19 @@ Symlink.Symlink.prototype.link = function (id) {
 
     var self = this;
     this.ajax.send(options, function (response) {
-        var results = JSON.parse(response.responseText);
-
-        if (typeof results === 'undefined') {
-            return false;
-        }
-
-        if (results.constructor === Array) {
-            return self._validate(response);
-        }
-
-        var resultDev = document.getElementById('result');
-        var resultMessage = document.getElementById('result-message');
-        resultDev.style.display = 'block';
-        resultMessage.innerHTML = results['message'];
-
-
+        // var results = JSON.parse(response.responseText);
+        //
+        // if (typeof results === 'undefined') {
+        //     return false;
+        // }
+        //
+        // if (results.constructor === Array) {
+        //     return self._validate(response);
+        // }
+        //
+        // var resultDev = document.getElementById('result');
+        // var resultMessage = document.getElementById('result-message');
+        // resultDev.style.display = 'block';
+        // resultMessage.innerHTML = results['message'];
     });
 };

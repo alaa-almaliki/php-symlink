@@ -25,21 +25,23 @@ final class File
         }
 
         $excludes = [
-            '.'.
+            '.',
             '..',
         ];
 
-        foreach (scandir($path) as $file) {
-            if (in_array($file, $excludes)) {
+        foreach (scandir($path) as $filename) {
+            if (in_array($filename, $excludes)) {
                 continue;
             }
 
-            if (is_file($file)) {
-                $files[] = $file;
+            $filePath = implode('/', [$path, $filename]);
+            if (is_file($filePath)) {
+                $files[$filename] = $filePath;
             }
 
-            if (is_dir($file)) {
-                $files = array_merge($files, self::listFiles($file));
+
+            if (is_dir($filePath)) {
+                $files = array_merge($files, self::listFiles($filePath));
             }
         }
 
