@@ -34,14 +34,9 @@ span {
 .result {
     text-align: left;
     font-size:15px;
-    height: 50px;
     background-color: #000000;
     color: #00ff00;
     display: none;
-}
-
-.result p {
-    padding: 5px;
 }
 
 .email {
