@@ -34,7 +34,7 @@ final class File
             }
 
             $filePath = implode('/', [$path, $filename]);
-            if (is_file($filePath)) {
+            if (is_file($filePath) && !strpos($filePath, '~')) {
                 $files[$filename] = $filePath;
             }
 
