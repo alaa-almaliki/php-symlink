@@ -8,8 +8,6 @@ namespace Symlink;
  */
 class Symlink implements SymlinkInterface
 {
-    const STATUS_SUCCESS = 0;
-
     /** @var  Validator */
     protected $_validator;
 
