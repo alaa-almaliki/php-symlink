@@ -15,6 +15,10 @@ final class File
     public static function listFiles($path)
     {
         $files = [];
+        $excludes = [
+            '.',
+            '..',
+        ];
 
         if (!is_dir($path) || !file_exists($path)) {
             return [];
@@ -23,11 +27,6 @@ final class File
         if (is_file($path)) {
             return [$path];
         }
-
-        $excludes = [
-            '.',
-            '..',
-        ];
 
         foreach (scandir($path) as $filename) {
             if (in_array($filename, $excludes)) {
@@ -38,7 +37,6 @@ final class File
             if (is_file($filePath)) {
                 $files[$filename] = $filePath;
             }
-
 
             if (is_dir($filePath)) {
                 $files = array_merge($files, self::listFiles($filePath));

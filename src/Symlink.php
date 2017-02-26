@@ -23,7 +23,7 @@ class Symlink implements SymlinkInterface
     }
 
     /**
-     * @param bool $asJson
+     * @param  bool $asJson
      * @return string
      */
     public function validate($asJson = true)

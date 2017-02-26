@@ -62,7 +62,7 @@ class Validator
     }
 
     /**
-     * @param array $paths
+     * @param  array $paths
      * @return $this
      */
     public function setPaths(array $paths)
@@ -80,7 +80,7 @@ class Validator
     }
 
     /**
-     * @param $target
+     * @param  string $target
      * @return $this
      */
     public function setTarget($target)
@@ -214,8 +214,8 @@ class Validator
     }
 
     /**
-     * @param string $key
-     * @param int $resultCode
+     * @param  string $key
+     * @param  int $resultCode
      * @return array
      */
     protected function _getValidationResult($key, $resultCode)
