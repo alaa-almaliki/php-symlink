@@ -1,7 +1,7 @@
 {
-  "name": "alaa-almaliki/symlink",
+  "name": "alaa-almaliki/php-symlink",
   "type": "php lib",
-  "homepage": "https://github.com/alaa-almaliki/symlink",
+  "homepage": "https://github.com/alaa-almaliki/php-symlink",
   "keywords": [
     "Symlink",
     "Symbolic links",
