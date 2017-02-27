@@ -44,7 +44,7 @@ class Symlink implements SymlinkInterface
     public function link($asJson = true)
     {
         if (!$this->isValid()) {
-            return $this->validate();
+            return $this->validate($asJson);
         }
 
         $results = $this->_link(File::listFiles($this->_validator->getTarget()));
@@ -109,7 +109,7 @@ class Symlink implements SymlinkInterface
                 unlink($link);
             }
 
-            $status = symlink($filePath, $link);
+            $status = @symlink($filePath, $link);
             $message = $status? '%s Linked successfully' : 'There was error linking %s';
             $results [] = [
                 'status' => $status,
