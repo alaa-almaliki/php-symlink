@@ -5,6 +5,17 @@ Links `target` directory and its sub-directories and containing files to the `de
 ### Download
 Use `git clone` or download `ZIP`
 
-## The Web App
+### The Web App
 
-Open the browser with url `http://localhost/php-symlink/`
+Open the browser with url `http://localhost/php-symlink/` and work out the form
+
+### The Shell Script
+The program can also be run from the command line.
+
+`cd {app_dir}`
+
+`php -f bin/link.php`
+
+And work from the read line inputs
+
+_Enjoy_!
