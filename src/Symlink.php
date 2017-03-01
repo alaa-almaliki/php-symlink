@@ -73,7 +73,7 @@ class Symlink implements SymlinkInterface
     {
         $results = [];
         foreach ($files as $filename => $filePath) {
-           $linkSinceTarget = trim(substr($filePath, strlen($this->_validator->getTarget()), strlen($filePath)), '/');
+            $linkSinceTarget = trim(substr($filePath, strlen($this->_validator->getTarget()), strlen($filePath)), '/');
             $realLink = rtrim($this->_validator->getDestination(), '/') . '/' . $linkSinceTarget;
             $parts = explode('/', pathinfo($linkSinceTarget, PATHINFO_DIRNAME));
 
