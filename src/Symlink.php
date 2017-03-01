@@ -73,50 +73,59 @@ class Symlink implements SymlinkInterface
     {
         $results = [];
         foreach ($files as $filename => $filePath) {
-            $linkDestination = [
-                basename($this->_validator->getTarget()),
-                trim(substr($filePath, strlen($this->_validator->getTarget()), strlen($filePath)), '/')
-            ];
+           $linkSinceTarget = trim(substr($filePath, strlen($this->_validator->getTarget()), strlen($filePath)), '/');
+            $realLink = rtrim($this->_validator->getDestination(), '/') . '/' . $linkSinceTarget;
+            $parts = explode('/', pathinfo($linkSinceTarget, PATHINFO_DIRNAME));
 
-            $link = rtrim($this->_validator->getDestination(), '/') . '/' . implode('/', $linkDestination);
-            $dynamicPart = [];
-            $parts = explode('/', pathinfo(implode('/', $linkDestination), PATHINFO_DIRNAME));
-
-            foreach ($parts as $part) {
-                $dynamicPart [] = $part;
-                $path = $this->_validator->getDestination() . '/' . implode('/', $dynamicPart);
-
-                if (is_file($path)) {
-                    continue;
-                }
-
-                if (!is_dir($path)) {
-                    mkdir($path, 0777, true);
-                    chmod($path, 0777);
-                } else {
-                    $mod = decoct(fileperms($path) & 0777);
-                    if ($mod != 777) {
-                        $results[] = [
-                            'status' => false,
-                            'message' => sprintf('%s with wrong permission %s and is not writable',$path, $mod)
-                        ];
-                        break 2;
-                    }
-                }
+            try {
+                $this->_resolveDirectories($parts);
+            } catch (\Exception $e) {
+                $results[] = [
+                    'status' => false,
+                    'message' => $e->getMessage(),
+                ];
+                break;
             }
 
-            if ($this->_canUnlink($link)) {
-                unlink($link);
+            if ($this->_canUnlink($realLink)) {
+                unlink($realLink);
             }
 
-            $status = @symlink($filePath, $link);
+            $status = @symlink($filePath, $realLink);
             $message = $status? '%s Linked successfully' : 'There was error linking %s';
             $results [] = [
                 'status' => $status,
-                'message' => sprintf($message, $link),
+                'message' => sprintf($message, $realLink),
             ];
         }
 
         return $results;
+    }
+
+    /**
+     * @param  string $parts
+     * @throws \Exception
+     */
+    protected function _resolveDirectories($parts)
+    {
+        $dynamicPart = [];
+        foreach ($parts as $part) {
+            $dynamicPart [] = $part;
+            $path = $this->_validator->getDestination() . '/' . implode('/', $dynamicPart);
+
+            if (is_file($path)) {
+                continue;
+            }
+
+            if (!is_dir($path)) {
+                mkdir($path, 0777, true);
+                chmod($path, 0777);
+            } else {
+                $mod = decoct(fileperms($path) & 0777);
+                if ($mod != 777) {
+                    throw new \Exception(sprintf('%s with wrong permission %s and is not writable', $path, $mod));
+                }
+            }
+        }
     }
 }
