@@ -92,7 +92,7 @@ class Symlink implements SymlinkInterface
             }
 
             $status = @symlink($filePath, $realLink);
-            $message = $status? '%s Linked successfully' : 'There was error linking %s';
+            $message = $status ? '%s Linked successfully' : 'There was error linking %s or it is already exists';
             $results [] = [
                 'status' => $status,
                 'message' => sprintf($message, $realLink),

@@ -13,10 +13,6 @@ class Validator
     const ERROR_FILE_IS_ROOT        = -2;
     const ERROR_FILE_NOT_EXIST      = -3;
     const ERROR_FILE_NOT_WRITABLE   = -4;
-    const ERROR_FILE_ALREADY_LINK   = -5;
-
-    const PATH_TARGET               = 'target';
-    const PATH_DESTINATION          = 'destination';
 
     /** @var  array  */
     protected $_paths = [];
@@ -203,9 +199,6 @@ class Validator
             case !$this->_isWritable(realpath($path)):
                 $code = self::ERROR_FILE_NOT_WRITABLE;
                 break;
-            case !$this->_canLink($key, $path):
-                $code = self::ERROR_FILE_ALREADY_LINK;
-                break;
             default:
                 $code = self::FILE_EXIST;
         }
@@ -246,11 +239,6 @@ class Validator
                 'field'     => $key,
                 'found'     => false,
             ],
-            self::ERROR_FILE_ALREADY_LINK => [
-                'message'   => "Destination is an existing link to the target directory",
-                'field'     => $key,
-                'found'     => false,
-            ],
         ];
 
         $unknown = ['message' => "Unknown error.", 'field' => $key, 'found' => false];
@@ -260,58 +248,6 @@ class Validator
         }
 
         return $result[$resultCode];
-    }
-
-    /**
-     * @param  string $key
-     * @param  string $path
-     * @return bool
-     */
-    protected function _canLink($key, $path)
-    {
-        $link = [
-            rtrim($this->_paths['destination'], '/'),
-            trim(basename($path), '/')
-        ];
-
-        $link = implode('/', $link);
-
-        if ($this->isClean()) {
-            if ($this->_canUnlink($link)) {
-                return $this->_unlink($link);
-            } else {
-                return true;
-            }
-        }
-
-        return !($this->_isLink($link) && $this->_isTarget($key));
-    }
-
-    /**
-     * @param  string $link
-     * @return bool
-     */
-    protected function _canUnlink($link)
-    {
-        return $this->_isLink($link) && $this->getAction() === SymlinkInterface::ACTION_LINK;
-    }
-
-    /**
-     * @param  string $link
-     * @return bool
-     */
-    protected function _unlink($link)
-    {
-        return unlink($link);
-    }
-
-    /**
-     * @param  string $path
-     * @return bool
-     */
-    protected function _isLink($path)
-    {
-        return is_link($path);
     }
 
     /**
@@ -330,23 +266,5 @@ class Validator
     protected function _isWritable($path)
     {
         return is_writable($path);
-    }
-
-    /**
-     * @param  string $key
-     * @return bool
-     */
-    protected function _isTarget($key)
-    {
-        return $key === self::PATH_TARGET;
-    }
-
-    /**
-     * @param  string $key
-     * @return bool
-     */
-    protected function _isDestination($key)
-    {
-        return $key === self::PATH_DESTINATION;
     }
 }
