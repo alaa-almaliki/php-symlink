@@ -103,14 +103,14 @@ class Symlink implements SymlinkInterface
     }
 
     /**
-     * @param  string $parts
+     * @param  array $parts
      * @throws \Exception
      */
-    protected function _resolveDirectories($parts)
+    protected function _resolveDirectories(array $parts)
     {
         $dynamicPart = [];
         foreach ($parts as $part) {
-            $dynamicPart [] = $part;
+            $dynamicPart[] = $part;
             $path = $this->_validator->getDestination() . '/' . implode('/', $dynamicPart);
 
             if (is_file($path)) {
