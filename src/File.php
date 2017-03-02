@@ -45,4 +45,13 @@ final class File
 
         return $files;
     }
+
+    /**
+     * @param $file
+     * @return bool
+     */
+    public static function is777($file)
+    {
+        return decoct(fileperms($file) & 0777) == 777;
+    }
 }

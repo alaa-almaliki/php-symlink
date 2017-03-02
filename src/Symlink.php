@@ -121,9 +121,8 @@ class Symlink implements SymlinkInterface
                 mkdir($path, 0777, true);
                 chmod($path, 0777);
             } else {
-                $mod = decoct(fileperms($path) & 0777);
-                if ($mod != 777) {
-                    throw new \Exception(sprintf('%s with wrong permission %s and is not writable', $path, $mod));
+                if (!File::is777($parts)) {
+                    throw new \Exception(sprintf('%s is with wrong write permissions and is not writable', $path));
                 }
             }
         }
