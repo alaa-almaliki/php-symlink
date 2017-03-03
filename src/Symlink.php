@@ -99,6 +99,8 @@ class Symlink implements SymlinkInterface
             ];
         }
 
+        $this->_log(__METHOD__);
+        $this->_log($results);
         return $results;
     }
 
@@ -121,10 +123,21 @@ class Symlink implements SymlinkInterface
                 mkdir($path, 0777, true);
                 chmod($path, 0777);
             } else {
-                if (!File::is777($parts)) {
-                    throw new \Exception(sprintf('%s is with wrong write permissions and is not writable', $path));
+                if (!File::is777($path)) {
+                    $message = sprintf('%s is with wrong write permissions and is not writable', $path);
+                    $this->_log($message);
+                    throw new \Exception($message);
                 }
             }
         }
+    }
+
+    /**
+     * @param string|array $message
+     */
+    protected function _log($message)
+    {
+        Logger::log($message);
+        Logger::log(PHP_EOL);
     }
 }

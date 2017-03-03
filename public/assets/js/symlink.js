@@ -32,6 +32,7 @@ Symlink.Symlink.prototype.validate = function (id) {
             "target=" + this.form().getTarget().value,
             "destination=" + this.form().getDestination().value,
             'clean=' + this.form().isClean().checked,
+            'log_enabled=' + this.form().logEnabled().checked,
             "action=" + id
         ].join("&")
     };
@@ -51,6 +52,9 @@ Symlink.Symlink.prototype.form = function () {
         },
         isClean: function () {
             return this._getElement('clean');
+        },
+        logEnabled: function () {
+            return this._getElement('log_enabled');
         }
     };
 };
@@ -63,6 +67,7 @@ Symlink.Symlink.prototype.link = function (id) {
             "target=" + this.form().getTarget().value,
             "destination=" + this.form().getDestination().value,
             "clean=" + this.form().isClean().checked,
+            'log_enabled=' + this.form().logEnabled().checked,
             "action=" + id
         ].join("&")
     };

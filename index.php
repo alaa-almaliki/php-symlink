@@ -54,8 +54,11 @@
                             <p id="destination-message"></p>
                         </div>
                     </div>
-                    <div class=" field checkbox">
+                    <div class="field checkbox">
                         <input type="checkbox" name="clean" id="clean"/><span><small>Clean Link</small></span>
+                    </div>
+                    <div class="field checkbox">
+                        <input type="checkbox" name="log_enabled" id="log_enabled"/><span><small>Enable Log</small></span>
                     </div>
                     <div class="field field-button">
                         <button class="submit" id="validate" onclick="Symlink.App.validate(this.id);">Validate</button>

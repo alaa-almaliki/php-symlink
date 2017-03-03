@@ -5,6 +5,9 @@ use Symlink\SymlinkInterface as Link;
 use Symlink\Validator;
 use Symlink\Symlink;
 
+$logEnabled = trim($_GET['log_enabled']) === 'true' ? true : false;
+define('LOG_ENABLED', $logEnabled);
+
 $params = [
     'target'        => trim($_GET['target']),
     'destination'   => trim($_GET['destination']),

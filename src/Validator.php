@@ -31,6 +31,10 @@ class Validator
      */
     public function __construct(array $args = [])
     {
+        $this->_log(__METHOD__);
+        $this->_log('Validator Arguments:');
+        $this->_log($args);
+
         if (!empty($args)) {
             if (isset($args['target'])) {
                 $this->_target = $args['target'];
@@ -157,6 +161,7 @@ class Validator
             return json_encode($results);
         }
 
+        $this->_log($results);
         return $results;
     }
 
@@ -176,6 +181,7 @@ class Validator
             $success &= $result['found'];
         }
 
+        $this->_log(__METHOD__ . ' Status: ' . ($success ? 'true' : 'false'));
         return $success;
     }
 
@@ -266,5 +272,14 @@ class Validator
     protected function _isWritable($path)
     {
         return is_writable($path);
+    }
+
+    /**
+     * @param string|array $message
+     */
+    protected function _log($message)
+    {
+        Logger::log($message);
+        Logger::log(PHP_EOL);
     }
 }
