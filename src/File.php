@@ -28,7 +28,7 @@ final class File
             return [$path];
         }
 
-        foreach (scandir($path) as $filename) {
+        foreach (preg_grep('/^([^.])/', scandir($path)) as $filename) {
             if (in_array($filename, $excludes)) {
                 continue;
             }
