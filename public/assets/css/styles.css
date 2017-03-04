@@ -26,6 +26,12 @@ span {
     padding-left: 10px;
 }
 
+.log_message {
+    display: none;
+    color: gray;
+    font-size: 12px;
+}
+
 .submit {
     width: 80px;
     font-size: 15px;

@@ -7,6 +7,16 @@
 <head>
     <title>File Sync</title>
     <link rel="stylesheet" type="text/css" href="public/assets/css/styles.css" />
+    <script type="text/javascript">
+        function showLogMessage() {
+            var logMessage = document.getElementById('log_message');
+            if (document.getElementById('log_enabled').checked) {
+                logMessage.style.display = 'inline';
+            } else {
+                logMessage.style.display = 'none';
+            }
+        }
+    </script>
 </head>
 <body>
 <script type="text/javascript" src="public/assets/js/AjaxNativeJs.js"></script>
@@ -58,7 +68,7 @@
                         <input type="checkbox" name="clean" id="clean"/><span><small>Clean Link</small></span>
                     </div>
                     <div class="field checkbox">
-                        <input type="checkbox" name="log_enabled" id="log_enabled"/><span><small>Enable Log</small></span>
+                        <input type="checkbox" name="log_enabled" id="log_enabled" onclick="showLogMessage();"/><span><small>Enable Log</small></span><span class="log_message" id="log_message">log file will be saved in directory {project_dir}/var/log/</span>
                     </div>
                     <div class="field field-button">
                         <button class="submit" id="validate" onclick="Symlink.App.validate(this.id);">Validate</button>
