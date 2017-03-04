@@ -16,7 +16,11 @@ AjaxNativeJs.prototype = {
     },
     post: function (options, callback, async) {
         if (typeof async === 'undefined') {
-            async = true;
+            if (typeof options['async'] !== 'undefined') {
+                async = options['async'];
+            } else {
+                async = true;
+            }
         }
 
         this.xhttp.onreadystatechange = function() {
