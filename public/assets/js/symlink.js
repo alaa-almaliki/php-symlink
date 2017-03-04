@@ -28,15 +28,15 @@ Symlink.Symlink.prototype.validate = function (id) {
     var options = {
         'type': 'GET',
         'url': this.url,
-        'params': [
-            "target=" + this.form().getTarget().value,
-            "destination=" + this.form().getDestination().value,
-            'clean=' + this.form().isClean().checked,
-            'log_enabled=' + this.form().logEnabled().checked,
-            "action=" + id
-        ].join("&")
+        'params': {
+            'target': this.form().getTarget().value,
+            'destination': this.form().getDestination().value,
+            'clean': this.form().isClean().checked,
+            'log_enabled': this.form().logEnabled().checked,
+            'action': id
+        }
     };
-    return this.ajax.send(options, this._validate);
+    return this.ajax.post(options, this._validate);
 };
 
 Symlink.Symlink.prototype.form = function () {
@@ -63,16 +63,16 @@ Symlink.Symlink.prototype.link = function (id) {
     var options = {
         'type': 'GET',
         'url': this.url,
-        'params': [
-            "target=" + this.form().getTarget().value,
-            "destination=" + this.form().getDestination().value,
-            "clean=" + this.form().isClean().checked,
-            'log_enabled=' + this.form().logEnabled().checked,
-            "action=" + id
-        ].join("&")
+        'params': {
+            'target': this.form().getTarget().value,
+            'destination': this.form().getDestination().value,
+            'clean': this.form().isClean().checked,
+            'log_enabled': this.form().logEnabled().checked,
+            'action': id
+        }
     };
 
-    this.ajax.send(options, function (response) {
+    this.ajax.post(options, function (response) {
         var results = JSON.parse(response.responseText);
         var resultDev = document.getElementById('result');
         resultDev.innerHTML = '';
