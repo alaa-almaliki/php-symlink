@@ -8,8 +8,8 @@ namespace Symlink;
  */
 interface SymlinkInterface
 {
-    const ACTION_LINK = 'symlink';
-    const ACTION_VALIDATE = 'validate';
+    const ACTION_LINK       = 'symlink';
+    const ACTION_VALIDATE   = 'validate';
 
     /**
      * @param  bool $asJason
@@ -21,4 +21,10 @@ interface SymlinkInterface
      * @return bool
      */
     public function isValid();
+
+    /**
+     * @param  bool $asJson
+     * @return array|string
+     */
+    public function link($asJson = true);
 }

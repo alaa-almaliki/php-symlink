@@ -77,12 +77,4 @@ final class Logger
 
         fclose($handle);
     }
-
-    /**
-     * @return string
-     */
-    protected static function _getBaseDir()
-    {
-        return dirname(__FILE__);
-    }
 }
