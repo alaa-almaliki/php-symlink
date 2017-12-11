@@ -1,4 +1,4 @@
-#PHP Symlink
+# PHP Symlink
 
 Links the `target` sub-directories and containing files to the `destination` directory.
 
